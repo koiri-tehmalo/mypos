@@ -1,6 +1,7 @@
 import configparser
 from pywinauto.application import Application
 import time
+import os
 
 # ชื่อไฟล์ Config
 CONFIG_FILE = "config.ini"
