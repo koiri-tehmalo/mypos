@@ -158,10 +158,41 @@ def payment1(config):
         time.sleep(SLEEP_TIME)
         main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
 
-        
     except Exception as e:
         print(f"[X] Error during Payment 1: {e}")
 
+def payment2(config):
+    print("Payment 2 executed")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['PAYMENT_FAST'], auto_id=PM_CFG['HOTKEY_F_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+    except Exception as e:
+        print(f"[X] Error during Payment 2: {e}")
+
+def payment3(config):
+    print("Payment 2 executed")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    RS_CFG = config['RETAIL_SALES']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['CREDIT_CARD_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.type_keys(f"{PM_CFG['CREDIT_CARD_AMOUNT']}{{ENTER}}")
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=RS_CFG['NEXT_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+    except Exception as e:
+        print(f"[X] Error during Payment 2: {e}")
 
 # ------------------------------------------------------------------------------
 

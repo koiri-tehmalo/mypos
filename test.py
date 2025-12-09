@@ -33,19 +33,19 @@ if not CONFIG.sections():
 # ดึงค่า Global ที่ใช้ร่วมกัน
 WINDOW_TITLE = CONFIG['GLOBAL']['WINDOW_TITLE']
 SLEEP_TIME = CONFIG.getint('GLOBAL', 'LOAD_TIME_SEC')
-def payment1():
-    print("Payment 1 executed")
+def payment2(config):
+    print("Payment 2 executed")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
     PM_CFG = CONFIG['PAYMENT']
-
     try:
         app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
         main_window = app.top_window()
-        main_window.child_window(title=PM_CFG['CASH_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        main_window.child_window(title=PM_CFG['PAYMENT_FAST'], auto_id=PM_CFG['HOTKEY_F_AUTO_ID'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
-        
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
     except Exception as e:
-        print(f"[X] Error during Payment 1: {e}")
+        print(f"[X] Error during Payment 2: {e}")
 
 if __name__ == "__main__":
-    payment1()
+    payment2(CONFIG)
