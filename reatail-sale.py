@@ -139,7 +139,6 @@ def payment1(config):
     PM_CFG = CONFIG['PAYMENT']
     RS_CFG = config['RETAIL_SALES']
     try:
-        test_retail_sales_1(CONFIG)
         app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
         main_window = app.top_window()
         main_window.child_window(title=PM_CFG['CASH_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
@@ -189,7 +188,6 @@ def payment4(config):
     PM_CFG = CONFIG['PAYMENT']
     RS_CFG = config['RETAIL_SALES']
     try:
-        test_retail_sales_1(CONFIG)
         app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
         main_window = app.top_window()
         main_window.child_window(title=PM_CFG['CHECK_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
@@ -326,8 +324,19 @@ def payment11(config):
 
 if __name__ == "__main__":
     # ส่ง CONFIG Object เข้าไปในทุกฟังก์ชันที่ต้องการใช้ค่า Dynamic
+    test_retail_sales_1(CONFIG)
     payment1(CONFIG)
+    test_retail_sales_2(CONFIG)
+    payment1(CONFIG)
+    time.sleep(2)
+    test_retail_sales_1(CONFIG)
     payment2(CONFIG)
-    #payment3(CONFIG)
+    test_retail_sales_2(CONFIG)
+    payment2(CONFIG)
+    time.sleep(2)
+    test_retail_sales_1(CONFIG)
     payment4(CONFIG)
+    test_retail_sales_2(CONFIG)
+    payment4(CONFIG)
+    #payment4(CONFIG)
     #test_retail_sales_2(CONFIG)
