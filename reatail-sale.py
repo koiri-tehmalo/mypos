@@ -143,7 +143,7 @@ def test_retail_sales_2(config):
         print(f"[X] Error during Retail Sales Test 2: {e}")
 
 def payment1(config):
-    print("Payment 1 executed")
+    print("ชำระด้วย เงินสด")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
     PM_CFG = CONFIG['PAYMENT']
     RS_CFG = config['RETAIL_SALES']
@@ -162,7 +162,7 @@ def payment1(config):
         print(f"[X] Error during Payment 1: {e}")
 
 def payment2(config):
-    print("Payment 2 executed")
+    print("ชำระด้วย เงินพอดี")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
     PM_CFG = CONFIG['PAYMENT']
     try:
@@ -174,9 +174,58 @@ def payment2(config):
 
     except Exception as e:
         print(f"[X] Error during Payment 2: {e}")
-
+#ยังทำไม่ได้
 def payment3(config):
-    print("Payment 2 executed")
+    print("Payment 5 executed")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['QR_CODE_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+    except Exception as e:
+        print(f"[X] Error during Payment 3: {e}")
+
+def payment4(config):
+    print("ชำระด้วย เช็ด")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    RS_CFG = config['RETAIL_SALES']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['CHECK_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+        time.sleep(SLEEP_TIME)
+        # กรอกข้อมูลเช็ค
+        main_window.type_keys(f"{PM_CFG['NUMBER_P']}{{TAB}}")
+        time.sleep(SLEEP_TIME)
+        main_window.type_keys(f"{PM_CFG['NUMBER_C']}{{TAB}}")
+        time.sleep(SLEEP_TIME)
+        main_window.type_keys(f"{PM_CFG['DATE_C']}{{TAB}}")
+        time.sleep(SLEEP_TIME)
+        combobox_bank = main_window.child_window(auto_id=PM_CFG['BANK_TITLE'], control_type="ComboBox")
+        combobox_bank.expand()
+        time.sleep(1) # รอ Dropdown กางออก
+        bank_item = combobox_bank.child_window(title=PM_CFG['BANK_C'], control_type="ListItem")
+        bank_item.click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=RS_CFG['NEXT_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=RS_CFG['NEXT_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+
+    except Exception as e:
+        print(f"[X] Error during Payment 4: {e}")
+
+def payment5(config):
+    print("ชำระด้วย บัตรเครดิต")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
     PM_CFG = CONFIG['PAYMENT']
     RS_CFG = config['RETAIL_SALES']
@@ -192,8 +241,91 @@ def payment3(config):
         main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
 
     except Exception as e:
-        print(f"[X] Error during Payment 2: {e}")
+        print(f"[X] Error during Payment 5: {e}")
 
+def payment6(config):
+    print("ชำระด้วย บัตรเดบิต")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['DEBIT_CARD_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+    except Exception as e:
+        print(f"[X] Error during Payment 6: {e}")
+
+def payment7(config):
+    print("ชำระด้วย อาลีเพย์")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['ALIPYAY_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+    except Exception as e:
+        print(f"[X] Error during Payment 7: {e}")
+def payment8(config):
+    print("ชำระด้วย วีแชท")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['WECHAT_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+    except Exception as e:
+        print(f"[X] Error during Payment 8: {e}")
+
+def payment9(config):
+    print("ชำระด้วย กระเป๋าตสตางค์@ไปรษณีย์")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['THP_PEYMENT_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+    except Exception as e:
+        print(f"[X] Error during Payment 9: {e}")
+
+#ยังทำไม่ได้
+def payment10(config):
+    print("ชำระด้วย คิวอาร์ เครดิต")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['QR_CREDIT_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+    except Exception as e:
+        print(f"[X] Error during Payment 10: {e}")    
+
+def payment11(config):
+    print("ชำระด้วย กระเป๋าตสตางค์ทรูมันนี่")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT']
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['TRUEMANEY_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
+
+    except Exception as e:
+        print(f"[X] Error during Payment 11: {e}")
 # ------------------------------------------------------------------------------
 
 if __name__ == "__main__":
