@@ -72,12 +72,7 @@ def test_retail_sales_1(config):
         # 5. รับเงิน
         main_window.child_window(title=RS_CFG['RECEIVE_PAYMENT_TITLE'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
-        
-        # 6. เลือกยอดเงินและยกเลิกการพิมพ์
-        main_window.child_window(title=config['GLOBAL']['PAYMENT_AMOUNT'], auto_id=RS_CFG['HOTKEY_R_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(SLEEP_TIME)
-        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
-        
+                
         print("[V] จบการทดสอบ Retail Sales: การค้นหาสินค้าสำเร็จ")
 
     except Exception as e:
@@ -131,23 +126,20 @@ def test_retail_sales_2(config):
         # 8. รับเงิน
         main_window.child_window(title=RS_CFG['RECEIVE_PAYMENT_TITLE'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
-        
-        # 9. เลือกยอดเงินและยกเลิกการพิมพ์
-        main_window.child_window(title=config['GLOBAL']['PAYMENT_AMOUNT'], auto_id=RS_CFG['HOTKEY_R_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(SLEEP_TIME)
-        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
-        
+                
         print("[V] จบการทดสอบ Retail Sales: ค้นหาสินค้าตามหมวดหมู่สำเร็จ")
 
     except Exception as e:
         print(f"[X] Error during Retail Sales Test 2: {e}")
-
+# -----------------------------------------------------------------------------------------------------------------------------
+#ทำได้แล้ว
 def payment1(config):
     print("ชำระด้วย เงินสด")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
     PM_CFG = CONFIG['PAYMENT']
     RS_CFG = config['RETAIL_SALES']
     try:
+        test_retail_sales_1(CONFIG)
         app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
         main_window = app.top_window()
         main_window.child_window(title=PM_CFG['CASH_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
@@ -157,11 +149,13 @@ def payment1(config):
         main_window.child_window(title=RS_CFG['NEXT_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
         main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
-
+        
     except Exception as e:
         print(f"[X] Error during Payment 1: {e}")
+#ทำได้แล้ว
 
 def payment2(config):
+    test_retail_sales_1(CONFIG)
     print("ชำระด้วย เงินพอดี")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
     PM_CFG = CONFIG['PAYMENT']
@@ -188,13 +182,14 @@ def payment3(config):
 
     except Exception as e:
         print(f"[X] Error during Payment 3: {e}")
-
+#ทำได้แล้ว
 def payment4(config):
     print("ชำระด้วย เช็ด")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
     PM_CFG = CONFIG['PAYMENT']
     RS_CFG = config['RETAIL_SALES']
     try:
+        test_retail_sales_1(CONFIG)
         app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
         main_window = app.top_window()
         main_window.child_window(title=PM_CFG['CHECK_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
@@ -206,13 +201,11 @@ def payment4(config):
         time.sleep(SLEEP_TIME)
         main_window.type_keys(f"{PM_CFG['DATE_C']}{{TAB}}")
         time.sleep(SLEEP_TIME)
-        combobox_bank = main_window.child_window(auto_id=PM_CFG['BANK_TITLE'],auto_id=PM_CFG['BANK_COMBO_AUTO_ID'], control_type="ComboBox")
+        combobox_bank = main_window.child_window(title=PM_CFG['BANK_TITLE'], auto_id=PM_CFG['BANK_COMBO_AUTO_ID'], control_type="ComboBox")
         combobox_bank.expand()
         time.sleep(1) # รอ Dropdown กางออก
-        bank_item = combobox_bank.child_window(title=PM_CFG['BANK_C'], control_type="ListItem")
+        bank_item = combobox_bank.child_window(title=PM_CFG['BANK_C'], control_type="Text")
         bank_item.click_input()
-        time.sleep(SLEEP_TIME)
-        main_window.child_window(title=RS_CFG['NEXT_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
         main_window.child_window(title=RS_CFG['NEXT_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
@@ -221,7 +214,7 @@ def payment4(config):
 
     except Exception as e:
         print(f"[X] Error during Payment 4: {e}")
-
+#ยังทำไม่ได้
 def payment5(config):
     print("ชำระด้วย บัตรเครดิต")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
@@ -240,21 +233,25 @@ def payment5(config):
 
     except Exception as e:
         print(f"[X] Error during Payment 5: {e}")
-
+#ยังทำไม่ได้
 def payment6(config):
     print("ชำระด้วย บัตรเดบิต")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
     PM_CFG = CONFIG['PAYMENT']
+    RS_CFG = config['RETAIL_SALES']
+
     try:
         app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
         main_window = app.top_window()
         main_window.child_window(title=PM_CFG['DEBIT_CARD_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
+        main_window.child_window(title=RS_CFG['NEXT_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
         main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
 
     except Exception as e:
         print(f"[X] Error during Payment 6: {e}")
-
+#ยังทำไม่ได้
 def payment7(config):
     print("ชำระด้วย อาลีเพย์")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
@@ -268,6 +265,7 @@ def payment7(config):
 
     except Exception as e:
         print(f"[X] Error during Payment 7: {e}")
+#ยังทำไม่ได้
 def payment8(config):
     print("ชำระด้วย วีแชท")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
@@ -281,7 +279,7 @@ def payment8(config):
 
     except Exception as e:
         print(f"[X] Error during Payment 8: {e}")
-
+#ยังทำไม่ได้
 def payment9(config):
     print("ชำระด้วย กระเป๋าตสตางค์@ไปรษณีย์")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
@@ -310,7 +308,7 @@ def payment10(config):
 
     except Exception as e:
         print(f"[X] Error during Payment 10: {e}")    
-
+#ยังทำไม่ได้
 def payment11(config):
     print("ชำระด้วย กระเป๋าตสตางค์ทรูมันนี่")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
@@ -328,5 +326,8 @@ def payment11(config):
 
 if __name__ == "__main__":
     # ส่ง CONFIG Object เข้าไปในทุกฟังก์ชันที่ต้องการใช้ค่า Dynamic
-    test_retail_sales_1(CONFIG)
-    test_retail_sales_2(CONFIG)
+    payment1(CONFIG)
+    payment2(CONFIG)
+    #payment3(CONFIG)
+    payment4(CONFIG)
+    #test_retail_sales_2(CONFIG)
