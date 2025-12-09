@@ -44,7 +44,7 @@ def test_retail_sales_1(config):
     # ดึงค่าที่เกี่ยวข้องกับ Test 1
     RS_CFG = config['RETAIL_SALES']
     T1_CFG = config['TEST_1_SEARCH_BY_TEXT']
-    
+
     try:
         app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
         main_window = app.top_window()
@@ -141,6 +141,21 @@ def test_retail_sales_2(config):
 
     except Exception as e:
         print(f"[X] Error during Retail Sales Test 2: {e}")
+
+def payment1():
+    print("Payment 1 executed")
+    # ดึงค่าที่เกี่ยวข้องกับ Payment
+    PM_CFG = CONFIG['PAYMENT_AMOUNT']
+
+    try:
+        app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
+        main_window = app.top_window()
+        main_window.child_window(title=PM_CFG['CASH_TITLE'], auto_id=RS_CFG['HOTKEY_R_AUTO_ID'], control_type="Text").click_input()
+        time.sleep(SLEEP_TIME)
+        
+    except Exception as e:
+        print(f"[X] Error during Payment 1: {e}")
+
 
 # ------------------------------------------------------------------------------
 
