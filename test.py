@@ -36,7 +36,7 @@ SLEEP_TIME = CONFIG.getint('GLOBAL', 'LOAD_TIME_SEC')
 def payment1():
     print("Payment 1 executed")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
-    PM_CFG = CONFIG['PAYMENT_AMOUNT']
+    PM_CFG = CONFIG['PAYMENT']
 
     try:
         app = Application(backend="uia").connect(title_re=WINDOW_TITLE, timeout=10)
