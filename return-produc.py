@@ -81,7 +81,7 @@ def test_return_product(config):
                                                    auto_id=RET_CFG['CONDITION_COMBO_AUTO_ID'], 
                                                    control_type="ComboBox")
         combo_condition.expand()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
 
         # เลือกสภาพ: ขายได้
         item_condition = combo_condition.child_window(title=RET_CFG['CONDITION_ITEM_TITLE'], 
@@ -111,7 +111,7 @@ def test_return_product(config):
         main_window.child_window(title=RET_CFG['CONFIRM_OK_TITLE'], 
                                  auto_id=RET_CFG['CONFIRM_OK_AUTO_ID'], 
                                  control_type="Text").click_input()
-        time.sleep(0.5)
+        time.sleep(SLEEP_TIME)
         
         # กด ถัดไป
         main_window.child_window(title=RET_CFG['NEXT_TITLE'], 

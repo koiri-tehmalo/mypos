@@ -57,25 +57,25 @@ def test_retail_sales_1(config):
         
         # 2. ค้นหาสินค้าด้วยชื่อ
         main_window.child_window(title=T1_CFG['SEARCH_TITLE'], auto_id=T1_CFG['SEARCH_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         main_window.type_keys(f"{T1_CFG['SEARCH_KEYWORD']}{{ENTER}}") 
         time.sleep(1)
         
         # 3. เลือกสินค้า
         main_window.child_window(title=RS_CFG['PRODUCT_DETAIL_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 4. ถัดไป (ยืนยันสินค้า)
         main_window.child_window(title=RS_CFG['NEXT_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 5. รับเงิน
         main_window.child_window(title=RS_CFG['RECEIVE_PAYMENT_TITLE'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 6. เลือกยอดเงินและยกเลิกการพิมพ์
         main_window.child_window(title=config['GLOBAL']['PAYMENT_AMOUNT'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
         
         print("[V] จบการทดสอบ Retail Sales: การค้นหาสินค้าสำเร็จ")
@@ -106,35 +106,35 @@ def test_retail_sales_2(config):
         
         # 2. ค้นหาสินค้าตามหมวดหมู่
         main_window.child_window(title=T2_CFG['CATEGORY_SEARCH_TITLE'], auto_id=T2_CFG['CATEGORY_SEARCH_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 3. เลือกหมวดหมู่ 1
         main_window.child_window(title=T2_CFG['CATEGORY_1_TITLE'], auto_id=T2_CFG['CATEGORY_SEARCH_AUTO_ID'], control_type= "Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 4. เลือกหมวดหมู่ 2
         main_window.child_window(title=T2_CFG['CATEGORY_2_TITLE'], auto_id=T2_CFG['CATEGORY_SEARCH_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 5. เลือกสินค้า
         main_window.child_window(title=RS_CFG['PRODUCT_DETAIL_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 6. ดูรายละเอียด
         main_window.child_window(title=T2_CFG['DETAIL_BUTTON_TITLE'], auto_id=T2_CFG['DETAIL_BUTTON_AUTO_ID'], control_type="Button").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 7. ถัดไป (ยืนยันสินค้า)
         main_window.child_window(title=RS_CFG['NEXT_TITLE'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 8. รับเงิน
         main_window.child_window(title=RS_CFG['RECEIVE_PAYMENT_TITLE'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         
         # 9. เลือกยอดเงินและยกเลิกการพิมพ์
         main_window.child_window(title=config['GLOBAL']['PAYMENT_AMOUNT'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
-        time.sleep(1)
+        time.sleep(SLEEP_TIME)
         main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
         
         print("[V] จบการทดสอบ Retail Sales: ค้นหาสินค้าตามหมวดหมู่สำเร็จ")
