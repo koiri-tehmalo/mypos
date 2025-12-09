@@ -74,7 +74,7 @@ def test_retail_sales_1(config):
         time.sleep(SLEEP_TIME)
         
         # 6. เลือกยอดเงินและยกเลิกการพิมพ์
-        main_window.child_window(title=config['GLOBAL']['PAYMENT_AMOUNT'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
+        main_window.child_window(title=config['GLOBAL']['PAYMENT_AMOUNT'], auto_id=RS_CFG['HOTKEY_R_AUTO_ID'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
         main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
         
@@ -133,7 +133,7 @@ def test_retail_sales_2(config):
         time.sleep(SLEEP_TIME)
         
         # 9. เลือกยอดเงินและยกเลิกการพิมพ์
-        main_window.child_window(title=config['GLOBAL']['PAYMENT_AMOUNT'], auto_id=RS_CFG['NEXT_AUTO_ID'], control_type="Text").click_input()
+        main_window.child_window(title=config['GLOBAL']['PAYMENT_AMOUNT'], auto_id=RS_CFG['HOTKEY_R_AUTO_ID'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
         main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
         
