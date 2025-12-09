@@ -199,8 +199,6 @@ def payment4(config):
         main_window = app.top_window()
         main_window.child_window(title=PM_CFG['CHECK_TITLE'], auto_id=PM_CFG['PAYMENT_AUTO_ID'], control_type="Text").click_input()
         time.sleep(SLEEP_TIME)
-        main_window.child_window(title=config['GLOBAL']['ABORT_PRINT_TITLE'], auto_id=config['GLOBAL']['ABORT_PRINT_AUTO_ID'], control_type="Button").click_input()
-        time.sleep(SLEEP_TIME)
         # กรอกข้อมูลเช็ค
         main_window.type_keys(f"{PM_CFG['NUMBER_P']}{{TAB}}")
         time.sleep(SLEEP_TIME)
@@ -208,7 +206,7 @@ def payment4(config):
         time.sleep(SLEEP_TIME)
         main_window.type_keys(f"{PM_CFG['DATE_C']}{{TAB}}")
         time.sleep(SLEEP_TIME)
-        combobox_bank = main_window.child_window(auto_id=PM_CFG['BANK_TITLE'], control_type="ComboBox")
+        combobox_bank = main_window.child_window(auto_id=PM_CFG['BANK_TITLE'],auto_id=PM_CFG['BANK_COMBO_AUTO_ID'], control_type="ComboBox")
         combobox_bank.expand()
         time.sleep(1) # รอ Dropdown กางออก
         bank_item = combobox_bank.child_window(title=PM_CFG['BANK_C'], control_type="ListItem")
