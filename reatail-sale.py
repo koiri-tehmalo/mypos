@@ -154,7 +154,6 @@ def payment1(config):
 #ทำได้แล้ว
 
 def payment2(config):
-    test_retail_sales_1(CONFIG)
     print("ชำระด้วย เงินพอดี")
     # ดึงค่าที่เกี่ยวข้องกับ Payment
     PM_CFG = CONFIG['PAYMENT']
@@ -324,18 +323,18 @@ def payment11(config):
 
 if __name__ == "__main__":
     # ส่ง CONFIG Object เข้าไปในทุกฟังก์ชันที่ต้องการใช้ค่า Dynamic
-    test_retail_sales_1(CONFIG)
-    payment1(CONFIG)
-    test_retail_sales_2(CONFIG)
-    payment1(CONFIG)
-    time.sleep(2)
-    test_retail_sales_1(CONFIG)
-    payment2(CONFIG)
-    test_retail_sales_2(CONFIG)
-    payment2(CONFIG)
-    time.sleep(2)
-    test_retail_sales_1(CONFIG)
-    payment4(CONFIG)
+    #test_retail_sales_1(CONFIG)
+    ##payment1(CONFIG)
+    #test_retail_sales_2(CONFIG)
+    #payment1(CONFIG)
+    #time.sleep(2)
+    #test_retail_sales_1(CONFIG)
+    #payment2(CONFIG)
+    #test_retail_sales_2(CONFIG)
+    #payment2(CONFIG)
+    #time.sleep(2)
+    #test_retail_sales_1(CONFIG)
+    #payment4(CONFIG)
     test_retail_sales_2(CONFIG)
     payment4(CONFIG)
     #payment4(CONFIG)
