@@ -2,6 +2,7 @@ import configparser
 from pywinauto.application import Application
 import time
 import os
+from evidence import save_evidence  # นำเข้าฟังก์ชันบันทึกหลักฐาน
 
 # ชื่อไฟล์ Config
 CONFIG_FILE = "config.ini"
@@ -128,6 +129,6 @@ def test_return_product(config):
 
     except Exception as e:
         print(f"[X] Error during Return Product Test: {e}")
-
+        save_evidence(app, "return_product_test")
 if __name__ == "__main__":
     test_return_product(CONFIG)
