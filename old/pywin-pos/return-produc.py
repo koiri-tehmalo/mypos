@@ -65,8 +65,7 @@ def test_return_product(config):
             print("[/] เปิดหน้าคืนสินค้าสำเร็จ")
 
             # 3. พิมพ์รหัสสินค้า
-            product_code = RET_CFG['PRODUCT_CODE']
-            main_window.type_keys(f"{product_code}{{ENTER}}")
+            main_window.type_keys(f"{code}{{ENTER}}")
             time.sleep(SLEEP_TIME)
 
         # 4. กดปุ่ม 'คืนเงินได้'
