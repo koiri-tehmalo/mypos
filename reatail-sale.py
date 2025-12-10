@@ -2,6 +2,7 @@ import configparser
 from pywinauto.application import Application
 import time
 import os
+from evidence import save_evidence  # นำเข้าฟังก์ชันบันทึกหลักฐาน
 
 # ชื่อไฟล์ Config
 CONFIG_FILE = "config.ini"
@@ -77,7 +78,7 @@ def test_retail_sales_1(config):
 
     except Exception as e:
         print(f"[X] Error during Retail Sales Test 1: {e}")
-
+        save_evidence(app, "retail_sales_test_1")
 # ------------------------------------------------------------------------------
 
 def test_retail_sales_2(config):
@@ -131,6 +132,7 @@ def test_retail_sales_2(config):
 
     except Exception as e:
         print(f"[X] Error during Retail Sales Test 2: {e}")
+        save_evidence(app, "retail_sales_test_2")
 # -----------------------------------------------------------------------------------------------------------------------------
 #ทำได้แล้ว
 def payment1(config):
@@ -324,18 +326,67 @@ def payment11(config):
 if __name__ == "__main__":
     # ส่ง CONFIG Object เข้าไปในทุกฟังก์ชันที่ต้องการใช้ค่า Dynamic
     #test_retail_sales_1(CONFIG)
-    ##payment1(CONFIG)
+    #payment1(CONFIG)
     #test_retail_sales_2(CONFIG)
     #payment1(CONFIG)
     #time.sleep(2)
+    
     #test_retail_sales_1(CONFIG)
     #payment2(CONFIG)
     #test_retail_sales_2(CONFIG)
     #payment2(CONFIG)
     #time.sleep(2)
+
+    test_retail_sales_1(CONFIG)
+    payment3(CONFIG)
+    test_retail_sales_2(CONFIG)
+    payment3(CONFIG)
+    time.sleep(2)
+
     #test_retail_sales_1(CONFIG)
     #payment4(CONFIG)
-    test_retail_sales_2(CONFIG)
-    payment4(CONFIG)
-    #payment4(CONFIG)
     #test_retail_sales_2(CONFIG)
+    #payment4(CONFIG)
+    #time.sleep(2)
+
+    #test_retail_sales_1(CONFIG)
+    #payment5(CONFIG)
+    #test_retail_sales_2(CONFIG)
+    #payment5(CONFIG)
+    #time.sleep(2)
+
+    #test_retail_sales_1(CONFIG)
+    #payment6(CONFIG)
+    #test_retail_sales_2(CONFIG)
+    #payment6(CONFIG)
+    #time.sleep(2)
+
+    #test_retail_sales_1(CONFIG)
+    #payment7(CONFIG)
+    #test_retail_sales_2(CONFIG)
+    #payment7(CONFIG)
+    #time.sleep(2)
+
+    #test_retail_sales_1(CONFIG)
+    #payment8(CONFIG)
+    #test_retail_sales_2(CONFIG)
+    #payment8(CONFIG)
+    #time.sleep(2)
+
+    #test_retail_sales_1(CONFIG)
+    #payment9(CONFIG)
+    #test_retail_sales_2(CONFIG)
+    #payment9(CONFIG)
+    #time.sleep(2)
+
+    #test_retail_sales_1(CONFIG)
+    #payment10(CONFIG)
+    #test_retail_sales_2(CONFIG)
+    #payment10(CONFIG)
+    #time.sleep(2)
+
+    #test_retail_sales_1(CONFIG)
+    #payment11(CONFIG)
+    #test_retail_sales_2(CONFIG)
+    #payment11(CONFIG)
+    #time.sleep(2)
