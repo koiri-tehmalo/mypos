@@ -1,27 +1,65 @@
+# evidence.py
 import os
-import datetime  # เพิ่ม module สำหรับจัดการเวลา เพื่อสร้างชื่อไฟล์ไม่ซ้ำ
-def save_evidence(app, test_name):
-    """ฟังก์ชันช่วยบันทึกหน้าจอเมื่อเกิด Error"""
-    # 1. สร้างโฟลเดอร์เก็บหลักฐานถ้ายังไม่มี
-    evidence_dir = "evidence"
-    if not os.path.exists(evidence_dir):
-        os.makedirs(evidence_dir)
+import json
+import datetime
+from PIL import ImageGrab
 
-    # 2. สร้างชื่อไฟล์ตามเวลา (Timestamp)
+
+def _ensure_dir(path="evidence"):
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
+
+
+def save_evidence(app, filename_prefix="ERROR"):
+    """เดิม – บันทึกภาพอย่างเดียว"""
+    evidence_dir = _ensure_dir()
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{evidence_dir}/FAIL_{test_name}_{timestamp}.png"
+    filename = f"{evidence_dir}/{filename_prefix}_{timestamp}.png"
 
     try:
         if app and app.top_window().exists():
-            # 3. สั่ง Capture หน้าต่างโปรแกรม
             app.top_window().capture_as_image().save(filename)
-            print(f"\n[!!] หลักฐาน (Evidence) ถูกบันทึกแล้วที่: {filename}")
-            print(f"[!!] สาเหตุที่ไม่ผ่าน: ดูภาพ {filename} เพื่อตรวจสอบ Error บนหน้าจอ")
         else:
-            # กรณีเชื่อมต่อ App ไม่ได้ ให้ Capture ทั้งหน้าจอ Desktop แทน (เผื่อ App หลุด)
-            from PIL import ImageGrab
             ImageGrab.grab().save(filename)
-            print(f"\n[!!] App ไม่ตอบสนอง บันทึกภาพ Desktop แทนที่: {filename}")
-            
+
+        print(f"[!!] Evidence saved: {filename}")
+        return filename
+
     except Exception as e:
-        print(f"[!!] ไม่สามารถบันทึกหลักฐานได้: {e}")
+        print(f"[!!] Failed to save evidence: {e}")
+        return None
+
+
+def save_evidence_context(app, context: dict):
+    """
+    ใหม่ – Save ทั้งรูป + JSON context
+    context ควรมี key: test_name, step_name, input_params, error_message
+    """
+    evidence_dir = _ensure_dir()
+
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    base = f"{context.get('test_name','unknown')}_{context.get('step_name','step')}_{timestamp}"
+
+    # 1) Save screenshot
+    img_path = f"{evidence_dir}/{base}.png"
+    try:
+        if app and app.top_window().exists():
+            app.top_window().capture_as_image().save(img_path)
+        else:
+            ImageGrab.grab().save(img_path)
+    except Exception as e:
+        print(f"[!!] Failed to capture screenshot: {e}")
+
+    # 2) Save JSON
+    json_path = f"{evidence_dir}/{base}.json"
+    context["timestamp"] = timestamp
+    try:
+        with open(json_path, "w", encoding="utf-8") as f:
+            json.dump(context, f, ensure_ascii=False, indent=4)
+    except Exception as e:
+        print(f"[!!] Failed to save json evidence: {e}")
+
+    print(f"[!!] Evidence saved:\n - {img_path}\n - {json_path}")
+
+    return img_path, json_path
