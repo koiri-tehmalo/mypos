@@ -93,9 +93,9 @@ def select_combobox_item(win, combo_auto_id, item_title, sleep=0.5):
         raise Exception(f"[X] ไม่พบ ComboBox: auto_id={combo_auto_id}")
 
     combo.expand()
-    time.sleep(0.3)
+    time.sleep(sleep)
 
-    item = find_element_safe(combo, title=item_title, control_type="ListItem")
+    item = find_element_safe(combo, title=item_title, control_type="Text")
     if item is None:
         raise Exception(f"[X] ไม่พบรายการใน ComboBox: '{item_title}'")
 
