@@ -31,9 +31,8 @@ def main():
     payment.pay_cash()
 
     # ทดลอง flow อื่นๆ:
-    # payment.pay_exact()
-    # payment.pay_qr()
-    # payment.pay_cheque()
+    # payment.pay_exact() เงินพอดี
+    # payment.pay_cheque() เช็ด
     # ...
 
     # ทดสอบ Return Product
