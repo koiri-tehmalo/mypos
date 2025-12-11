@@ -20,6 +20,25 @@ class ReturnFlow:
         if not raw_codes:
             raw_codes = self.RET.get("PRODUCT_CODE", "")
         self.product_list = [x.strip() for x in raw_codes.split(",") if x.strip()]
+        self.payment_method_map = dict(config["RETURN_PRODUCT_PAYMENT_METHOD"])
+    
+    # เลือกปุ่มคืนเงินตามประเภทที่สินค้าซื้อมาครั้งแรก
+    def refund_by_method(self, win, product_code: str):
+        method = self.payment_method_map.get(product_code, "CASH").upper()
+
+        print(f"[*] รหัสสินค้า {product_code} : วิธีคืนเงิน = {method}")
+
+        if method == "CASH":
+            click(win, title=self.RET["CASH_TITLE"])
+            return
+
+        if method == "CHEQUE":
+            if "CHEQUE_BUTTON_TITLE" not in self.RET:
+                raise Exception("[X] ไม่มี CHEQUE_BUTTON_TITLE ใน config.ini")
+            click(win, title=self.RET["CHECK_TITLE"])
+            return
+        raise Exception(f"[X] ไม่รองรับวิธีคืนเงินสำหรับ code={product_code}, method={method}")
+
 
     def process_all(self):
         app, win = self.ctx.connect()
@@ -79,7 +98,7 @@ class ReturnFlow:
                 # จ่ายเงินคืน
                 click(win, title=self.RET["PAY_BUTTON_TITLE"])
                 time.sleep(0.5)
-                click(win, title=self.RET["CASH_BUTTON_TITLE"])
+                self.refund_by_method(win, code)
                 time.sleep(self.SLEEP)
 
                 # กด ตกลง
