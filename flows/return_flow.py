@@ -14,6 +14,7 @@ class ReturnFlow:
         self.ctx = ctx
         self.RET = config["RETURN_PRODUCT"]
         self.GL = config["GLOBAL"]
+        self.PM = config["PAYMENT"]
         self.SLEEP = config.getint("GLOBAL", "LOAD_TIME_SEC")
 
         raw_codes = self.RET.get("PRODUCT_CODES", "")
@@ -29,13 +30,16 @@ class ReturnFlow:
         print(f"[*] รหัสสินค้า {product_code} : วิธีคืนเงิน = {method}")
 
         if method == "CASH":
-            click(win, title=self.RET["CASH_TITLE"])
+            click(win, title=self.PM["CASH_TITLE"])
+            time.sleep(self.SLEEP)
+            click(win,title=self.RET["CONFIRM_OK_TITLE"],auto_id=self.RET["CONFIRM_OK_AUTO_ID"],)
+            
             return
 
         if method == "CHEQUE":
-            if "CHEQUE_BUTTON_TITLE" not in self.RET:
-                raise Exception("[X] ไม่มี CHEQUE_BUTTON_TITLE ใน config.ini")
-            click(win, title=self.RET["CHECK_TITLE"])
+            
+            click(win, title=self.PM["CHECK_TITLE"])
+            click(win,title=self.RET["SELECE_TITLE"],auto_id=self.RET["CONFIRM_OK_AUTO_ID"])
             return
         raise Exception(f"[X] ไม่รองรับวิธีคืนเงินสำหรับ code={product_code}, method={method}")
 
@@ -99,14 +103,6 @@ class ReturnFlow:
                 click(win, title=self.RET["PAY_BUTTON_TITLE"])
                 time.sleep(0.5)
                 self.refund_by_method(win, code)
-                time.sleep(self.SLEEP)
-
-                # กด ตกลง
-                click(
-                    win,
-                    title=self.RET["CONFIRM_OK_TITLE"],
-                    auto_id=self.RET["CONFIRM_OK_AUTO_ID"],
-                )
                 time.sleep(self.SLEEP)
 
                 # ถัดไป
