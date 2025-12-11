@@ -5,12 +5,13 @@ from typing import Optional, Any, Dict
 from pywinauto.base_wrapper import BaseWrapper
 from evidence import save_evidence_context
 
-
+# ค้นหา element เดียวในหน้าต่างโดยใช้ kwargs ที่ส่งเข้าไป (wrapper)
 def _find_element(win: BaseWrapper, **kwargs) -> BaseWrapper:
     """wrapper หา element เดียวให้ทุกฟังก์ชันใช้ร่วมกัน"""
     return win.child_window(**kwargs)
 
 
+# คลิก element (ตาม title/auto_id/control_type) และพักเวลาสั้น ๆ
 def click(
     win: BaseWrapper,
     title: Optional[str] = None,
@@ -94,7 +95,6 @@ def run_step(app, step_name: str, func, *args, **kwargs):
 
         # เก็บ context ต่อไปนี้
         context = {
-            "test_name": kwargs.get("test_name", "unknown_test"),
             "step_name": step_name,
             "input_params": kwargs,
             "error_message": str(e),

@@ -39,7 +39,7 @@ def save_evidence_context(app, context: dict):
     evidence_dir = _ensure_dir()
 
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    base = f"{context.get('test_name','unknown')}_{context.get('step_name','step')}_{timestamp}"
+    base = f"{context.get('step_name','step')}_{timestamp}"
 
     # 1) Save screenshot
     img_path = f"{evidence_dir}/{base}.png"

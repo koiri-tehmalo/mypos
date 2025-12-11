@@ -44,7 +44,7 @@ class PaymentFlow:
             time.sleep(self.SLEEP)
             self._abort_print(win)
 
-        run_step(app, "payment_cash", _inner,test_name="payment_cash",amount=self.PM["CASH_AMOUNT"])
+        run_step(app, "payment_cash", _inner)
 
     # ---------- 2) เงินพอดี (จ่ายเร็ว) ----------
     def pay_exact(self):
