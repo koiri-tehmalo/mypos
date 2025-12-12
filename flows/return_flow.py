@@ -72,8 +72,8 @@ class ReturnFlow:
                     auto_id=self.RET["REFUND_BUTTON_AUTO_ID"],
                 )
                 except Exception:
-                    print(f"[!] โปรดใส่หมายเลขที่ถูกต้อง")
-                    raise Exception(f"โปรดใส่หมายเลขที่ถูกต้อง")      
+                    print(f"[!] โปรดใส่หมายเลข TR ที่ถูกต้อง")
+                    raise Exception(f"โปรดใส่หมายเลข TR ที่ถูกต้อง")      
                 time.sleep(self.SLEEP)
 
                 # เลือกสาเหตุการคืน
