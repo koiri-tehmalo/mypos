@@ -65,11 +65,15 @@ class ReturnFlow:
                 type_keys(win, f"{code}{{ENTER}}", sleep=self.SLEEP)
 
                 # ปุ่ม "คืนเงินได้"
-                click(
+                try:
+                    click(
                     win,
                     title=self.RET["REFUND_BUTTON_TITLE"],
                     auto_id=self.RET["REFUND_BUTTON_AUTO_ID"],
                 )
+                except Exception:
+                    print(f"[!] โปรดใส่หมายเลขที่ถูกต้อง")
+                    raise Exception(f"โปรดใส่หมายเลขที่ถูกต้อง")      
                 time.sleep(self.SLEEP)
 
                 # เลือกสาเหตุการคืน
