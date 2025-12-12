@@ -36,11 +36,15 @@ class PaymentFlow:
             )
             time.sleep(self.SLEEP)
             type_keys(win, f"{self.PM['CASH_AMOUNT']}{{ENTER}}", sleep=self.SLEEP)
-            click(
+            try:
+                click(
                 win,
                 title=self.RS["NEXT_TITLE"],
                 auto_id=self.RS["NEXT_AUTO_ID"],
             )
+            except Exception:
+                print("[!] มีเงินทอนไม่เพียงพอ")
+                raise Exception("INSUFFICIENT_CASH_CHANGE")    
             time.sleep(self.SLEEP)
             self._abort_print(win)
 
