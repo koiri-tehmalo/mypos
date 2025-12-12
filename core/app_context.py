@@ -25,6 +25,7 @@ class AppContext:
                 title_re=self.window_title_regex,
                 timeout=timeout,
             )
-            self.main_window = self.app.top_window()
+            self.main_window = self.app.window(title_re=self.window_title_regex,)
+            self.main_window.set_focus()
             print("[/] เชื่อมต่อ Application สำเร็จ")
         return self.app, self.main_window
