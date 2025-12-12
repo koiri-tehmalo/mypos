@@ -40,11 +40,15 @@ class RetailFlow:
             time.sleep(1)
 
             # 3) เลือกสินค้า
-            click(
+            try:
+                click(
                 win,
                 title=self.RS_CFG["PRODUCT_DETAIL_TITLE"],
                 auto_id=self.RS_CFG["NEXT_AUTO_ID"],
             )
+            except Exception:
+                print(f"[!] ไม่มี {self.RS_CFG['PRODUCT_DETAIL_TITLE']} ให้เลือก")
+                raise Exception(f"ไม่มี {self.RS_CFG['PRODUCT_DETAIL_TITLE']} ให้เลือก")  
             time.sleep(self.SLEEP_TIME)
 
             # 4) ถัดไป
@@ -83,11 +87,15 @@ class RetailFlow:
             time.sleep(self.SLEEP_TIME)
 
             # 3) เลือกหมวดหมู่ 1
-            click(
+            try:
+                click(
                 win,
                 title=self.T2_CFG["CATEGORY_1_TITLE"],
                 auto_id=self.T2_CFG["CATEGORY_SEARCH_AUTO_ID"],
             )
+            except Exception:
+                print(f"[!] ไม่มี {self.T2_CFG['CATEGORY_1_TITLE']} ให้เลือก")
+                raise Exception(f"ไม่มี {self.T2_CFG['CATEGORY_1_TITLE']} ให้เลือก")  
             time.sleep(self.SLEEP_TIME)
 
             # 4) เลือกหมวดหมู่ 2
